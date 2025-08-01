@@ -1,6 +1,11 @@
 <script setup>
-    import { useForm } from '@inertiajs/vue3'
+    import { useForm, usePage  } from '@inertiajs/vue3'
 
+    import { Link } from '@inertiajs/vue3'
+    import { route } from 'ziggy-js'
+
+    const success = usePage().props.success
+    
     const form = useForm({
       name: '',
       email: '',
@@ -19,8 +24,8 @@
       <div class="h-[80%] w-[40%] shadow-lg outline rounded-2xl px-20 py-3 flex flex-col">
           <div class="flex-flex-col mt-10">
             <span class="text-center">
-              <h3 class="text-4xl">Sign Up</h3>
-              <p class="text-gray-700">Sign up to continue</p>
+              <h3 class="text-4xl">Sign In</h3>
+              <p class="text-gray-700">Sign In to continue</p>
             </span>
           </div>
 
@@ -28,18 +33,7 @@
 
             <form @submit.prevent="submit">
 
-              <div class="flex flex-col gap-y-15">
-                <div class="flex flex-col space-y-2.5">
-                  <div class="flex space-x-3">
-                    <label>Name</label>
-                    <input v-model="form.name" type="text" class="outline-0 w-[100%] font-semibold"
-                    :class="{'outline-1 outline-red-600' : form.errors.name}"
-                    />
-                    <div v-if="form.errors.name">{{ form.errors.name }}</div>
-                  </div>
-                  <div class="bg-gray-500 p-[0.5px]"></div>
-                </div>
-                
+              <div class="flex flex-col gap-y-15">                
                 <div class="flex flex-col space-y-2.5">
                   <div class="flex space-x-3">
                     <label>Email</label>
@@ -60,10 +54,19 @@
                   </div>
                   <div class="bg-gray-500 p-[0.5px]"></div>
                 </div>
+
+                <div v-if="success" class="text-green-600">{{ success }}</div>
             
                 <button type="submit" :disabled="form.processing" 
-                class="bg-blue-600 py-2 rounded text-white hover:bg-green-500 transition-colors duration-400"
-                >Sign up</button>
+                class="bg-blue-600 py-2 rounded text-white hover:bg-blue-900 transition-colors duration-400"
+                >Sign In</button>
+
+                <div class="text-center">
+                  <p>Doesn't have an account? <span>
+                    <Link :href="route('signup')" class="text-blue-500">Signup</Link>
+                    </span>
+                  </p>
+                </div>
               </div>
             </form>
           </div>

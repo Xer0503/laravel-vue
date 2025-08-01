@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
-Route::get('/',  [TestController::class, 'create'])->name('home');
-Route::post('/home',  [TestController::class, 'submit'])->name('submit');
-Route::get('/home',  [TestController::class, 'create'])->name('create');
+Route::get('/signin', [AuthController::class, 'signinPage'])->name('signin');
+Route::post('/signin',  [AuthController::class, 'signin']);
+
+Route::get('/signup', [AuthController::class, 'signupPage'])->name('signup');
+Route::post('/signup', [AuthController::class, 'signup']);
+
+Route::get('/user', [UserController::class, 'user']);
