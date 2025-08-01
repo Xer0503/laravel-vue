@@ -19,7 +19,7 @@ class TestController extends Controller
             'password' => 'required|string',
         ]);
 
-        return redirect()->back()->with([
+        return Inertia::render('Home', [
             'success' => 'Created',
             'data' => $request->only('name', 'email', 'password')
         ]);
