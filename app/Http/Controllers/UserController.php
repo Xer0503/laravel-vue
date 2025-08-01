@@ -15,4 +15,8 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function home(){
+        return Inertia::render('User/Home');
+    }
 }

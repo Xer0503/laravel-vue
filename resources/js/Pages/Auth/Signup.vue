@@ -70,7 +70,7 @@
 
                 <div class="text-center">
                   <p>Already have an account? <span>
-                    <Link :href="route('signin')" class="text-blue-500">Signin</Link>
+                    <Link :href="route('signin')" class="text-blue-500 hover:underline">Signin</Link>
                     </span>
                   </p>
                 </div>

@@ -12,3 +12,7 @@ Route::get('/signup', [AuthController::class, 'signupPage'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signup']);
 
 Route::get('/user', [UserController::class, 'user']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [UserController::class, 'home'])->name('home');
+});

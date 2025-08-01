@@ -8,7 +8,7 @@ const { users } = usePage().props
     <h1>Users</h1>
     <ul>
       <li v-for="user in users" :key="user.id">
-        {{ user.name }} - {{ user.email }} | {{ user.password }}</li>
+        {{ user.name }} - {{ user.email }}</li>
     </ul>
   </div>
 </template>
