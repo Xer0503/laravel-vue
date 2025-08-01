@@ -19,6 +19,10 @@ class AuthController extends Controller
         return Inertia::render('Auth/Signup');
     }
 
+    public function signinPageAdmin(){
+        return Inertia::render('Auth/SigninAdmin');
+    }
+
     public function signup(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',
@@ -48,17 +52,22 @@ class AuthController extends Controller
             ]);
         }
 
-        $request->session()->regenerate();
+        auth()->user()->status = true;
+        auth()->user()->save();
 
-        Inertia::share([
-            'auth' => function () {
-                return [
-                    'user' => auth()->user()
-                ];
-            }
-        ]);
+        $request->session()->regenerate();
 
         return redirect()->intended(route('home'));
     }
 
+    public function logout(Request $request)
+    {
+        auth()->user()->status = false;
+        auth()->user()->save();
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('signin')->with('success', 'Logged out.');
+    }
 }

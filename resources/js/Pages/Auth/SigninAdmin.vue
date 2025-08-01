@@ -12,7 +12,7 @@
     })
 
     function submit() {
-      form.post('/signin')
+      form.post('/signinAdmin')
     }
 
 </script>
@@ -23,7 +23,7 @@
       <div class="h-[80%] w-[40%] shadow-lg outline rounded-2xl px-20 py-3 flex flex-col">
           <div class="flex-flex-col mt-10">
             <span class="text-center">
-              <h3 class="text-4xl">Sign In</h3>
+              <h3 class="text-4xl">Admin</h3>
               <p class="text-gray-700">Sign In to continue</p>
             </span>
           </div>
@@ -63,8 +63,8 @@
                 >Sign In</button>
 
                 <div class="text-center">
-                  <p>Doesn't have an account? <span>
-                    <Link :href="route('signup')" class="text-blue-500 hover:underline">Signup</Link>
+                  <p>Wanna go to the blogs? <span>
+                    <Link :href="route('signin')" class="text-blue-500 hover:underline">Blogs</Link>
                     </span>
                   </p>
                 </div>
