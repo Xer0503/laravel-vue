@@ -23,6 +23,31 @@ class AuthController extends Controller
         return Inertia::render('Auth/SigninAdmin');
     }
 
+    public function signinAdmin(Request $request){
+        
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => 'The provided credentials are incorrect.',
+            ]);
+        }
+
+        auth()->user()->status = true;
+        auth()->user()->save();
+
+        $request->session()->regenerate();
+
+        if(auth()->user()->role != 'admin'){
+            return redirect()->intended(route('signin'));
+        }else{
+            return redirect()->intended(route('dashboard'));
+        }
+    }
+
     public function signup(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',

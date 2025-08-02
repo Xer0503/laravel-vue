@@ -31,6 +31,7 @@
           <div v-if="flash">
             <p class="text-green-600 text-center">{{ flash.success }}</p>
           </div>
+          <span v-if="form.errors.email" class="text-center text-red-600">{{form.errors.email}}</span>
 
           <div class="flex flex-col justify-center h-full">
 
@@ -40,7 +41,6 @@
                 <div class="flex flex-col space-y-2.5">
                   <div class="flex space-x-3">
                     <div class="flex space-x-2">
-                      <span v-if="form.errors.email" class="rounded-full px-2.5 bg-red-600 text-white">!</span>
                       <label>Email</label>
                     </div>
                     <input v-model="form.email" type="text" class="outline-0 w-[100%] font-semibold"/>
