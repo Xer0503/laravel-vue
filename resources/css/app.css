@@ -6,7 +6,6 @@
 @source '../**/*.js';
 
 body{
-    background: #1f1e1e;
     padding: 0;
     margin: 0;
 }
