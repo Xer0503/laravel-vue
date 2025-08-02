@@ -21,8 +21,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
 });
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/admin', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/user', [AdminController::class, 'user'])->name('admin.user');
+    Route::get('/post', [AdminController::class, 'post'])->name('admin.post');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
