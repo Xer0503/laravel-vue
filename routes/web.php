@@ -25,6 +25,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/user', [AdminController::class, 'user'])->name('admin.user');
     Route::get('/post', [AdminController::class, 'post'])->name('admin.post');
+
+    Route::delete('/user/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::patch('/user/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
