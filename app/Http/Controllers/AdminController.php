@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -51,4 +52,29 @@ class AdminController extends Controller
 
         return back()->with('success', 'User updated.');
     }
+
+    //For image upload
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // handle image
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('users', 'public');
+            $user->image = $imagePath;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'User updated with image.');
+    }
+
 }

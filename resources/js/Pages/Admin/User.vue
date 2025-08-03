@@ -113,7 +113,7 @@ defineOptions({
     <!-- Modal -->
     <div
       v-if="modalToggle"
-      class="fixed z-20 inset-0 bg-gray-800 rounded-2xl text-white p-6 max-w-lg my-auto mx-auto h-[65vh]"
+      class="fixed z-20 inset-0 bg-gray-800 rounded-2xl text-white p-6 max-w-lg my-auto mx-auto h-[85vh] md:h-[65vh]"
       @click.stop
     >
       <div class="flex justify-between items-center mb-4">

@@ -19,4 +19,13 @@ class UserController extends Controller
     public function home(){
         return Inertia::render('User/Home');
     }
+
+    public function test()
+    {
+        $users = User::all();
+
+        return Inertia::render('Test/User', [
+            'users' => $users
+        ]);
+    }
 }
