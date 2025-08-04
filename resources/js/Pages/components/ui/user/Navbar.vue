@@ -1,5 +1,6 @@
 <script setup>
-    import { usePage } from '@inertiajs/vue3';
+    import { usePage, Link } from '@inertiajs/vue3';
+    import { route } from 'ziggy-js';
     const auth = usePage().props.auth.user;
 
 </script>
@@ -9,9 +10,13 @@
             <span class="text-blue-600 font-bold text-2xl">ficebook</span>
             <span>+</span>
         </div>
-        <div class="flex justify-between px-5 py-3">
-            <span>Home</span>
-            <span>Profile</span>
+        <div class="flex justify-evenly px-5 py-3 cursor-pointer">
+            <Link :href="route('home')">
+                <span>Home</span>
+            </Link>
+            <Link :href="route('profile')">
+                <span>Profile</span>
+            </Link>
         </div>
 
         <div class="flex justify-between py-4">

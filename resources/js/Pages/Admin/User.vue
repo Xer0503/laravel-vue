@@ -102,7 +102,6 @@ defineOptions({
         </tr>
       </tbody>
     </table>
-
     <!-- Overlay -->
     <div
       v-if="modalToggle"

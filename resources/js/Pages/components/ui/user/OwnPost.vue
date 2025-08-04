@@ -1,7 +1,6 @@
 <script setup>
-    import UserLayout from '../../../Layouts/UserLayout.vue';
     import { usePage } from '@inertiajs/vue3';
-    const auth = usePage().props.auth.user;
+    const auth = usePage().props.auth.user
 </script>
 
 <template>

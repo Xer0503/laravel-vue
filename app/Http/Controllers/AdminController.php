@@ -76,5 +76,4 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User updated with image.');
     }
-
 }

@@ -7,12 +7,12 @@
     <div class="md:w-1/2 flex flex-col mx-auto px-2 shadow-md h-full">
         <!--Header-->
         <div>
-            <Navbar />
+            <Navbar id="top"/>
         </div>
         <div class="py-[0.5px] bg-gray-200"></div>
         <!--Feeds-->
         <div class="h-full py-4">
-            <FeedCard />
+            <slot />
         </div>
     </div>
 </template>

@@ -28,4 +28,26 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function profile(){
+        return Inertia::render('User/Profile');
+    }
+
+    public function uploadImage(Request $request){
+
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $id = auth()->user()->id;
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('users', 'public');
+            $user->image = $imagePath;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'User updated with image.');
+    }
 }

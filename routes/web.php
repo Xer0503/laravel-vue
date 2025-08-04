@@ -20,6 +20,8 @@ Route::post('/user/update/{id}', [AdminController::class, 'update']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/profile/changeProfile', [UserController::class, 'uploadImage'])->name('changeProfile');
 });
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
