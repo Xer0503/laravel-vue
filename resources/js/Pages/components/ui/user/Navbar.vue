@@ -8,7 +8,9 @@
     <div class="flex flex-col w-full px-3 py-2">
         <div class="flex justify-between items-center">
             <span class="text-blue-600 font-bold text-2xl">ficebook</span>
-            <span>+</span>
+            <Link :href="route('createPost')">
+                <span class="rounded-full text-2xl cursor-pointer">+</span>
+            </Link>
         </div>
         <div class="flex justify-evenly px-5 py-3 cursor-pointer">
             <Link :href="route('home')">

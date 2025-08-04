@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Post;
 
 class UserController extends Controller
 {
@@ -50,4 +51,36 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'User updated with image.');
     }
+
+    public function createPost()
+    {
+      return Inertia::render('User/CreatePost');
+    }
+
+    public function uploadPost(Request $request)
+    {
+        $user_id = auth()->user()->id;
+
+        $request->validate([
+            'body' => 'required|string|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visibility' => 'required|string'
+        ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('uploads', 'public');
+        }
+
+        Post::create([
+            'title' => '',
+            'user_id' => $user_id,
+            'body' => $request->body,
+            'image' => $imagePath, // store relative path
+            'visibility' => $request->visibility,
+        ]);
+
+        return redirect()->route('home')->with('success', 'Post Uploaded');
+    }
+
 }
