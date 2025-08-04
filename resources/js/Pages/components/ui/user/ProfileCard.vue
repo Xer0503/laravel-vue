@@ -45,9 +45,9 @@
             <div class="mx-auto mt-5">
                 <span class="font-bold text-3xl">{{ auth.name }}</span>
             </div>
-            <a href="#top">
-                <div @click="viewModal" class="mx-auto cursor-pointer mb-5">chnage profile</div>
-            </a>
+            <div @click="viewModal" class="mx-auto cursor-pointer mb-5">
+                <a href="#top">chnage profile</a>
+            </div>
         </section>
     
         <div class="py-[0.5px] bg-gray-200 z-20"></div>
