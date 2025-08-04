@@ -14,7 +14,14 @@
         <span @click="navToggle()" class="md:hidden">toggle</span>
         <div class="flex space-x-2">
             <span>msg</span>
-            <span>img</span>
+            <span>
+                <img
+                    v-if="user.image"
+                    :src="`/storage/${user.image}`"
+                    alt="Profile picture"
+                    class="h-8 w-8 rounded-full object-cover"
+                />
+            </span>
             <span>{{user.name}}</span>
         </div>
     </div>

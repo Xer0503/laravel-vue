@@ -1,8 +1,10 @@
 <script setup>
+import { usePage } from '@inertiajs/vue3'
 import Sidebar from '../components/ui/admin/Sidebar.vue'
 import SideMobile from '../components/ui/admin/SideMobile.vue'
 import Navbar from '../components/ui/admin/Navbar.vue'
 import { toggle } from '../utils/nav'
+const admin = usePage().props.auth.user
 
 function navToggle() {
   toggle.value = !toggle.value
