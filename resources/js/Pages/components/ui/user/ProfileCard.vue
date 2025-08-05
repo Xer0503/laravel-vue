@@ -44,14 +44,21 @@ const logout = () => {
 </script>
 
 <template>
-    <div class="relative min-h-screen bg-gray-50">
+    <div class="h-[0.5px] bg-gray-200"></div>
+    <div class="relative min-h-screen bg-gray-50 py-3">
         <!-- Profile Section -->
-        <section class="flex flex-col items-center py-10 bg-white shadow-md rounded-b-3xl">
-            <img
+        <section class="flex flex-col items-center py-5 bg-white shadow-md rounded-b-3xl rounded-t-3xl">
+            <img v-if="auth.image != null"
                 :src="`/storage/${auth.image}`"
                 :alt="auth.image"
                 loading="lazy"
-                class="w-32 h-32 rounded-full shadow-md"
+                class="w-50 h-50 rounded-full shadow-md"
+            />
+            <img v-else
+                src="/storage/app/public/users/default.svg"
+                :alt="auth.image"
+                loading="lazy"
+                class="w-50 h-50 rounded-full shadow-md"
             />
             <h2 class="mt-4 text-2xl font-semibold text-gray-800">{{ auth.name }}</h2>
 

@@ -5,7 +5,7 @@ import { route } from 'ziggy-js'
 const form = useForm({
   body: '',
   image: null,
-  visibility: '',
+  visibility: 'public',
 })
 
 const auth = usePage().props.auth.user
@@ -49,10 +49,9 @@ function submit() {
                     <div class="flex flex-col">
                         <span class="font-bold">{{ auth.name }}</span>
                         <select v-model="form.visibility" class="px-1 py-1 bg-blue-200 text-blue-800 rounded">
-                            <option disabled value="">Select visibility</option>
-                            <option value="private">Private</option>
-                            <option value="followers">Follewers</option>
                             <option value="public">Public</option>
+                            <option value="private">Private</option>
+                            <option value="followers">Followers</option>
                         </select>
                     </div>
                 </div>

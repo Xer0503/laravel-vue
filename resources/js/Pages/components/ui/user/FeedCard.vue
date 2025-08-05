@@ -16,7 +16,7 @@ defineProps({
       <img
         :src="`/storage/${post.user.image}`"
         :alt="post.user.name"
-        class="w-8 h-8 rounded-full object-cover"
+        class="w-8 h-8 rounded-full"
       />
       <div>
         <h2 class="font-semibold">{{ post.user.name }}</h2>
@@ -29,7 +29,12 @@ defineProps({
 
     <!-- Image -->
     <div v-if="post.image" class="mt-3">
-      <img :src="`/storage/${post.image}`" :alt="post.image" class="w-full rounded" />
+      <img :src="`/storage/${post.image}`" :alt="post.image" class="w-full rounded object-cover" />
+    </div>
+
+    <!--Reaction-->
+    <div class="px-5 py-2">
+        <span>Like</span>
     </div>
   </section>
 </template>

@@ -16,4 +16,10 @@ class PostController extends Controller
             'posts' => $posts
         ]);
     }
+
+    public function deletePost($id){
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->back()->with('success', 'post has been deleted!');
+    }
 }

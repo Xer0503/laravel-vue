@@ -63,9 +63,9 @@ class UserController extends Controller
     public function uploadPost(Request $request)
     {
         $user_id = auth()->user()->id;
+        $body = $request->body;
 
         $request->validate([
-            'body' => 'required|string|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'visibility' => 'required|string'
         ]);
@@ -75,11 +75,21 @@ class UserController extends Controller
             $imagePath = $request->file('image')->store('uploads', 'public');
         }
 
+        if($body != ''){
+            Post::create([
+                'title' => '',
+                'user_id' => $user_id,
+                'body' => $request->body,
+                'image' => $imagePath,
+                'visibility' => $request->visibility,
+            ]);
+        }
+
         Post::create([
             'title' => '',
             'user_id' => $user_id,
-            'body' => $request->body,
-            'image' => $imagePath, // store relative path
+            'body' => '',
+            'image' => $imagePath,
             'visibility' => $request->visibility,
         ]);
 

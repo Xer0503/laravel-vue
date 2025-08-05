@@ -5,7 +5,9 @@ use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 
+Route::get('/', [AuthController::class, 'signinPage'])->name('signin');
 Route::get('/signin', [AuthController::class, 'signinPage'])->name('signin');
 Route::post('/signin',  [AuthController::class, 'signin']);
 
@@ -22,9 +24,12 @@ Route::post('/user/update/{id}', [AdminController::class, 'update']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [UserController::class, 'home'])->name('home');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
     Route::post('/profile/changeProfile', [UserController::class, 'uploadImage'])->name('changeProfile');
     Route::get('/createPost',[UserController::class, 'createPost'])->name('createPost');
     Route::post('/uploadPost',[UserController::class, 'uploadPost'])->name('uploadPost');
+
+    Route::delete('/profile/post/{id}', [PostController::class, 'deletePost'])->name('deletePost');
 });
 
 

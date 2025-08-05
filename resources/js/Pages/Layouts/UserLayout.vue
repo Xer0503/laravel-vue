@@ -9,7 +9,6 @@
         <div>
             <Navbar id="top"/>
         </div>
-        <div class="py-[0.5px] bg-gray-200"></div>
         <!--Feeds-->
         <div class="h-full py-4">
             <slot />

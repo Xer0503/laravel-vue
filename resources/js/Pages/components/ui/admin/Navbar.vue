@@ -19,7 +19,7 @@
                     v-if="user.image"
                     :src="`/storage/${user.image}`"
                     alt="Profile picture"
-                    class="h-8 w-8 rounded-full object-cover"
+                    class="h-8 w-8 rounded-full"
                 />
             </span>
             <span>{{user.name}}</span>

@@ -1,45 +1,56 @@
 <script setup>
-    import { usePage, Link } from '@inertiajs/vue3';
-    import { route } from 'ziggy-js';
-    const auth = usePage().props.auth.user;
+import { ref } from 'vue';
+import { usePage, Link } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
 
+const auth = usePage().props.auth.user;
+
+const navIcon = [
+    {
+        id: 1,
+        title: 'home',
+        iconbl: '/storage/icons/homebl.svg',
+        iconSelected: '/storage/icons/home.svg'
+    },
+    {
+        id: 2,
+        title: 'profile',
+        iconbl: '/storage/icons/profilebl.svg',
+        iconSelected: '/storage/icons/profile.svg'
+    }
+];
+
+const selectedNav = ref(navIcon[0].id);
+
+const setSelected = (id) => {
+    selectedNav.value = id;
+};
 </script>
+
 <template>
     <div class="flex flex-col w-full px-3 py-2">
-        <div class="flex justify-between items-center">
-            <span class="text-blue-600 font-bold text-2xl">ficebook</span>
+        <div class="flex justify-between items-center py-4 px-3">
+            <span class="text-blue-600 font-black text-3xl">ficebook</span>
             <Link :href="route('createPost')">
-                <span class="rounded-full text-2xl cursor-pointer">+</span>
+                <span class="rounded-full text-2xl cursor-pointer">
+                    <img src="/storage/app/public/icons/add.svg" loading="lazy" alt="add post" class="w-7 h-7" />
+                </span>
             </Link>
         </div>
-        <div class="flex justify-evenly px-5 py-3 cursor-pointer">
-            <Link :href="route('home')">
-                <span>Home</span>
+        <div class="flex justify-evenly px-5 cursor-pointer">
+            <Link
+                v-for="nav in navIcon"
+                :key="nav.id"
+                :href="route(nav.title)"
+                @click="setSelected(nav.id)"
+            >
+                <img
+                    :src="selectedNav === nav.id ? nav.iconSelected : nav.iconbl"
+                    :alt="nav.title"
+                    class="w-7 h-7"
+                />
             </Link>
-            <Link :href="route('profile')">
-                <span>Profile</span>
-            </Link>
-        </div>
-
-        <div class="flex justify-between items-center py-2">
-            <span>
-                <Link :href="route('profile')">
-                    <img 
-                    v-if="auth.image"
-                    :src="`storage/${auth.image}`" alt="profile" class="w-10 h-10 rounded-full object-cover" />
-                </Link>
-            </span>
-            <div  class="w-[70%]">
-                <Link :href="route('createPost')">
-                    <span class="text-sm w-full outline-1 rounded-r-2xl rounded-l-2xl outline-gray-500 px-5 py-2 flex items-center">What's on your mind?</span>
-                </Link>
-            </div>
-            <div>
-
-                <Link :href="route('createPost')">
-                    <span>add pic</span>
-                </Link>
-            </div>
         </div>
     </div>
+    <div class="bg-gray-200 h-[0.5px]"></div>
 </template>
