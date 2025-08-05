@@ -1,5 +1,6 @@
 <script setup>
-import { usePage, useForm } from '@inertiajs/vue3'
+import { usePage, useForm, Link } from '@inertiajs/vue3'
+import { route } from 'ziggy-js'
 
 const form = useForm({
   body: '',
@@ -30,7 +31,9 @@ function submit() {
             <div class="flex flex-col">
                 <div class="flex justify-between py-2">
                     <span class="flex space-x-4 items-center">
-                        <span>back</span>
+                        <Link :href="route('home')">
+                            <span>back</span>
+                        </Link>
                         <span>Create Post</span>
                     </span>
                     <span>

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
-
+use App\Models\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $posts = Post::with('user')->latest()->get();
         Inertia::share([
             'auth' => function () {
                 return [
@@ -33,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
             'flash' => fn () => [
                 'success' => session('success'),
                 'error' => session('error')
+            ]
+        ]);
+
+        Inertia::share([
+            'posts' => fn () => [
+                'post' => $posts,
             ]
         ]);
 
