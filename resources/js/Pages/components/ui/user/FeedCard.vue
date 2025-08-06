@@ -1,5 +1,9 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
+import { usePage, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const following = ref(false);
+
 const auth = usePage().props.auth.user
 defineProps({
   post: {
@@ -7,6 +11,19 @@ defineProps({
     required: true
   }
 })
+
+const form = useForm({
+  id : null,
+})
+
+const follow = (id) => {
+  form.get(`/home/follow/${id}`)
+}
+
+const unfollow = (id) => {
+  form.get(`/home/unfollow/${id}`)
+}
+
 </script>
 
 <template>
@@ -20,7 +37,7 @@ defineProps({
       />
       <div>
         <h2 class="font-semibold">{{ post.user.name }}</h2>
-        <p class="text-sm text-gray-500">{{ post.created_at }}</p>
+        <p  v-if="auth.id != post.user.id" @click="follow(post.user.id)" class="text-sm text-gray-500 cursor-pointer">follow</p>
       </div>
     </div>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FollowingController;
 
 Route::get('/', [AuthController::class, 'signinPage'])->name('signin');
 Route::get('/signin', [AuthController::class, 'signinPage'])->name('signin');
@@ -30,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/uploadPost',[UserController::class, 'uploadPost'])->name('uploadPost');
 
     Route::delete('/profile/post/{id}', [PostController::class, 'deletePost'])->name('deletePost');
+
+    //for follwing user
+    Route::get('/home/follow/{id}', [FollowingController::class, 'followUser'])->name('follow');
 });
 
 

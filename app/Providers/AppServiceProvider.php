@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $posts = Post::with('user')->latest()->get();
+        $followers = 
         Inertia::share([
             'auth' => function () {
                 return [
