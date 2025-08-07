@@ -14,14 +14,14 @@
     })
 
     function deletePost(id){
-        form.delete(`/profile/post/${id}`, {
+        form.delete(`/profile/post/${id}`), {
+            preserveScroll: true,
             onSuccess: () => {
-                Inertia.visit(route('profile'), {
-                preserveScroll: true,
-                });
+                Inertia.reload({ only: ['posts'] });
             }
-        });
+        };
     }
+
 
     const dropDown = () => {drop.value = !drop.value}
 </script>
@@ -33,10 +33,15 @@
             <div class="flex justify-between items-center space-x-3">
                 <div class="flex items-center space-x-3">
                     <span>
-                        <img :src="`/storage/${post.user.image}`" :alt="post.user.image" class="w-10 h-10 rounded-full shadow-md" />
+                        <img
+                            v-if="post.user"
+                            :src="`/storage/${post.user.image}`"
+                            :alt="post.user.image"
+                            class="w-10 h-10 rounded-full shadow-md"
+                        />
                     </span>
                     <span class="flex flex-col">
-                        <span>{{ post.user.name }}</span>
+                        <span v-if="post.user">{{ post.user.name }}</span>
                         <span class="text-sm text-gray-600">{{ post.visibility }}</span>
                     </span>
                 </div>
@@ -55,7 +60,7 @@
         </div>
 
         <!--Body Card-->
-        <div class="py-2 flex justify-center w-full">
+        <div v-if="post.image" class="py-2 flex justify-center w-full">
             <img :src="`storage/${post.image}`" :alt=auth.image class="object-cover w-"/>
         </div>
 

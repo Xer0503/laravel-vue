@@ -27,11 +27,6 @@ class AppServiceProvider extends ServiceProvider
                 'success' => session('success'),
                 'error' => session('error'),
             ],
-
-            'posts' => fn () => [
-                'post' => Post::with('user')->latest()->get()
-            ],
-
             // Only share followers/followings of the logged-in user
             'followers' => fn () => Auth::check()
                 ? Auth::user()->followers()

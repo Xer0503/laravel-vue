@@ -34,7 +34,10 @@ class UserController extends Controller
     }
 
     public function profile(){
-        return Inertia::render('User/Profile');
+        $posts = Post::with('user')->latest()->get();
+        return Inertia::render('User/Profile', [
+            'posts' => $posts
+        ]);
     }
 
     public function uploadImage(Request $request){
@@ -62,38 +65,30 @@ class UserController extends Controller
 
     public function uploadPost(Request $request)
     {
-        $user_id = auth()->user()->id;
-        $body = $request->body;
+        $user = auth()->user();
 
         $request->validate([
+            'body' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'visibility' => 'required|string'
         ]);
 
         $imagePath = null;
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('uploads', 'public');
         }
 
-        if($body != ''){
-            Post::create([
-                'title' => '',
-                'user_id' => $user_id,
-                'body' => $request->body,
-                'image' => $imagePath,
-                'visibility' => $request->visibility,
-            ]);
-        }
-
         Post::create([
-            'title' => '',
-            'user_id' => $user_id,
-            'body' => '',
-            'image' => $imagePath,
-            'visibility' => $request->visibility,
+            'user_id'   => $user->id,
+            'title'     => '',
+            'body'      => $request->body,
+            'image'     => $imagePath,
+            'visibility'=> $request->visibility,
         ]);
 
         return redirect()->route('home')->with('success', 'Post Uploaded');
     }
+
 
 }

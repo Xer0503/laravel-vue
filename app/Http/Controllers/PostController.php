@@ -10,8 +10,7 @@ use App\Models\Post;
 class PostController extends Controller
 {
     public function post(){
-        $posts = Post::all();
-
+        $posts = Post::with('user')->latest()->get();
         return Inertia::render('/User/Home',[
             'posts' => $posts
         ]);
@@ -20,6 +19,6 @@ class PostController extends Controller
     public function deletePost($id){
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->route('profile')->with('success', 'post has been deleted!');
+        return redirect()->back()->with('success', 'post has been deleted!');
     }
 }
