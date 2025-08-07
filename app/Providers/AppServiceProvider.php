@@ -4,45 +4,46 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        $posts = Post::with('user')->latest()->get();
-        $followers = 
         Inertia::share([
-            'auth' => function () {
-                return [
-                    'user' => auth()->user(),
-                ];
-            }
-        ]);
+            // Share authenticated user
+            'auth' => fn () => [
+                'user' => Auth::user(),
+            ],
 
-        Inertia::share([
+            // Flash messages (success/error)
             'flash' => fn () => [
                 'success' => session('success'),
-                'error' => session('error')
-            ]
-        ]);
+                'error' => session('error'),
+            ],
 
-        Inertia::share([
             'posts' => fn () => [
-                'post' => $posts,
-            ]
-        ]);
+                'post' => Post::with('user')->latest()->get()
+            ],
 
+            // Only share followers/followings of the logged-in user
+            'followers' => fn () => Auth::check()
+                ? Auth::user()->followers()
+                ->select('users.id', 'users.name')
+                ->get()
+                : [],
+
+            'followings' => fn () => Auth::check()
+                ? Auth::user()->followings()
+                ->select('users.id', 'users.name')
+                ->get()
+                : [],
+        ]);
     }
 }

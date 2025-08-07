@@ -5,13 +5,6 @@
 
     import { useForm } from '@inertiajs/vue3';
     import UserLayout from '../Layouts/UserLayout.vue';
-
-    const form = useForm({
-        name: '',
-        email: '',
-        password: '',
-        image: null,
-    });
     
     defineOptions({
         layout : UserLayout

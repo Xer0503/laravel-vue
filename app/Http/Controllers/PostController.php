@@ -20,6 +20,6 @@ class PostController extends Controller
     public function deletePost($id){
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->back()->with('success', 'post has been deleted!');
+        return redirect()->route('profile')->with('success', 'post has been deleted!');
     }
 }

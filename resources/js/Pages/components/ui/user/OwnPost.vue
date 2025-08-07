@@ -16,7 +16,9 @@
     function deletePost(id){
         form.delete(`/profile/post/${id}`, {
             onSuccess: () => {
-            Inertia.reload();
+                Inertia.visit(route('profile'), {
+                preserveScroll: true,
+                });
             }
         });
     }
@@ -35,7 +37,7 @@
                     </span>
                     <span class="flex flex-col">
                         <span>{{ post.user.name }}</span>
-                        <span class="text-sm text-gray-600">1d</span>
+                        <span class="text-sm text-gray-600">{{ post.visibility }}</span>
                     </span>
                 </div>
                 <div class="flex flex-col justify-end items-end">

@@ -6,7 +6,8 @@
     import FeedCard from '../components/ui/user/FeedCard.vue';
     
     const auth = usePage().props.auth.user;
-    const { posts } = usePage().props
+
+    const { posts } = usePage().props;
 
     
     defineOptions({

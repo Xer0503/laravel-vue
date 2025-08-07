@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile/post/{id}', [PostController::class, 'deletePost'])->name('deletePost');
 
     //for follwing user
-    Route::get('/home/follow/{id}', [FollowingController::class, 'followUser'])->name('follow');
+    Route::post('/follow/{id}', [FollowingController::class, 'followUser'])->name('follow.user');
+    Route::delete('/unfollow/{id}', [FollowingController::class, 'unfollowUser'])->name('unfollow.user');
+
 });
 
 

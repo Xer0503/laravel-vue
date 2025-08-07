@@ -1,33 +1,48 @@
 <script setup>
 import { usePage, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 
-const following = ref(false);
+const auth = usePage().props.auth.user;
+const followings = usePage().props.followings;
 
-const auth = usePage().props.auth.user
-defineProps({
+const props = defineProps({
   post: {
     type: Object,
     required: true
   }
 })
 
-const form = useForm({
-  id : null,
-})
+const form = useForm({ id: null })
 
-const follow = (id) => {
-  form.get(`/home/follow/${id}`)
+const isFollowing = ref(
+  followings.some(f => f.id === props.post.user.id)
+)
+
+const toggleFollow = () => {
+  if (isFollowing.value) {
+    form.delete(`/unfollow/${props.post.user.id}`, {
+      preserveScroll: true,
+      onSuccess: () => {
+        isFollowing.value = false;
+        Inertia.reload({ only: ['posts'] });
+      }
+    });
+  } else {
+    form.post(`/follow/${props.post.user.id}`, {
+      preserveScroll: true,
+      onSuccess: () => {
+        isFollowing.value = true;
+        Inertia.reload({ only: ['posts'] });
+      }
+    });
+  }
 }
-
-const unfollow = (id) => {
-  form.get(`/home/unfollow/${id}`)
-}
-
 </script>
 
+
 <template>
-  <section v-if="post.visibility != 'private'" class="shadow p-4 rounded bg-white mb-4">
+  <section v-if="post.visibility === 'public' || isFollowing || auth.id === post.user.id" class="shadow p-4 rounded bg-white mb-4">
     <!-- Header -->
     <div class="flex items-center gap-3">
       <img
@@ -37,7 +52,18 @@ const unfollow = (id) => {
       />
       <div>
         <h2 class="font-semibold">{{ post.user.name }}</h2>
-        <p  v-if="auth.id != post.user.id" @click="follow(post.user.id)" class="text-sm text-gray-500 cursor-pointer">follow</p>
+
+        <!-- Show Follow/Unfollow if not the same user -->
+        <p
+          v-if="auth.id !== post.user.id"
+          @click="toggleFollow"
+          class="text-sm text-blue-600 hover:underline cursor-pointer"
+        >
+          {{ isFollowing ? 'Unfollow' : 'Follow' }}
+        </p>
+        <p v-else class="text-sm text-gray-600 hover:underline cursor-pointer">
+          You
+        </p>
       </div>
     </div>
 
@@ -49,9 +75,9 @@ const unfollow = (id) => {
       <img :src="`/storage/${post.image}`" :alt="post.image" class="w-full rounded object-cover" />
     </div>
 
-    <!--Reaction-->
+    <!-- Reaction -->
     <div class="px-5 py-2">
-        <span>Like</span>
+      <span>Like</span>
     </div>
   </section>
 </template>
