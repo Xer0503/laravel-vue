@@ -48,9 +48,16 @@ function submit() {
         <div class="flex space-x-2.5 items-center">
           <span>
             <img
-              :src="auth.image ? `/storage/${auth.image}` : '/default-profile.png'"
+              v-if="auth.image"
+              :src="`/storage/${auth.image}`"
               :alt="auth.name"
-              class="w-12 h-12 rounded-full object-cover"
+              class="w-12 h-12 rounded-full"
+            />
+            <img
+              v-else
+              src="/storage/app/public/users/default.svg"
+              :alt="auth.name"
+              class="w-12 h-12 rounded-full"
             />
           </span>
           <div class="flex flex-col">

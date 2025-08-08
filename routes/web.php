@@ -36,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/follow/{id}', [FollowingController::class, 'followUser'])->name('follow.user');
     Route::delete('/unfollow/{id}', [FollowingController::class, 'unfollowUser'])->name('unfollow.user');
 
+    //for react on post
+    Route::post('/home/react/{id}', [PostController::class, 'react'])->name('reactOnPost');
+
 });
 
 

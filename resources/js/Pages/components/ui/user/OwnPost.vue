@@ -34,8 +34,14 @@
                 <div class="flex items-center space-x-3">
                     <span>
                         <img
-                            v-if="post.user"
-                            :src="`/storage/${post.user.image}`"
+                            v-if="auth.image"
+                            :src="`/storage/${auth.image}`"
+                            :alt="auth.image"
+                            class="w-10 h-10 rounded-full shadow-md"
+                        />
+                        <img
+                            v-else
+                            src="/storage/app/public/users/default.svg"
                             :alt="post.user.image"
                             class="w-10 h-10 rounded-full shadow-md"
                         />
