@@ -30,13 +30,13 @@ class AppServiceProvider extends ServiceProvider
             // Only share followers/followings of the logged-in user
             'followers' => fn () => Auth::check()
                 ? Auth::user()->followers()
-                ->select('users.id', 'users.name')
+                ->select('users.id', 'users.name', 'users.image')
                 ->get()
                 : [],
 
             'followings' => fn () => Auth::check()
                 ? Auth::user()->followings()
-                ->select('users.id', 'users.name')
+                ->select('users.id', 'users.name', 'users.image')
                 ->get()
                 : [],
         ]);
