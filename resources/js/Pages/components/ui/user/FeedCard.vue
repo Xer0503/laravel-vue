@@ -47,8 +47,8 @@ const toggleFollow = () => {
   }
 };
 
-const submit = (post_id) => {
-  form.post(`home/comment/${post_id}`)
+const submit = () => {
+  form.post(`home/comment/${props.post.id}`)
 }
 
 </script>
