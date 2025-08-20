@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\FollowingController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [AuthController::class, 'signinPage'])->name('signin');
 Route::get('/signin', [AuthController::class, 'signinPage'])->name('signin');
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
 
     //for react on post
     Route::post('/home/react/{id}', [PostController::class, 'react'])->name('reactOnPost');
+
+    Route::post('/home/comment/{post_id}', [CommentController::class, 'comment'])->name('commentOnPost');
 
 });
 

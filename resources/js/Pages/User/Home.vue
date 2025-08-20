@@ -1,6 +1,7 @@
 <script setup>
     import { usePage, Link, router } from '@inertiajs/vue3'; 
     import { route } from 'ziggy-js';
+    import { ref } from 'vue';
     import { useForm } from '@inertiajs/vue3';
     import UserLayout from '../Layouts/UserLayout.vue';
     import FeedCard from '../components/ui/user/FeedCard.vue';
@@ -9,11 +10,15 @@
 
     const { posts } = usePage().props;
 
+    const comment = ref(false);
+
     
     defineOptions({
         layout : UserLayout
     })
 
+    const showComment = () => {comment.value = true};
+    const closeComment = () => {comment.value = false};
 
 </script>
 <template>
