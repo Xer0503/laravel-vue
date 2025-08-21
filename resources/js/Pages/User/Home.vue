@@ -17,9 +17,6 @@
         layout : UserLayout
     })
 
-    console.log(posts);
-    
-
 </script>
 <template>
     <div class="flex justify-between items-center pb-5 px-5 my-auto">

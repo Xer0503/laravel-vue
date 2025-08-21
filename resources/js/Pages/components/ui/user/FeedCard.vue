@@ -8,7 +8,7 @@ const auth = usePage().props.auth.user;
 const followings = usePage().props.followings;
 const comment = ref(false);
 const closeComment = () => {comment.value = false};
-const showComment = () => {comment.value = true};
+const showComment = () => {comment.value = true; };
 
 const props = defineProps({
   post: {
@@ -51,12 +51,9 @@ const toggleFollow = () => {
 const submit = () => {
   form.post(`home/comment/${props.post.id}`, {
     preserveScroll: true,
-    onSuccess: () => {form.reset('body');}
+    onSuccess: () => {form.reset('body'); Inertia.reload({ only: ['posts'] });}
   });
 }
-
-
-console.log("FeedCard Post:", props.post.comments); 
 
 </script>
 
@@ -106,14 +103,9 @@ console.log("FeedCard Post:", props.post.comments);
       </div>
     </section>
 
-    <div v-if="comment" class="fixed inset-0 bg-black/30 backdrop-blur-md z-5"></div>
     <!--Comment Section-->
-    <section v-if="comment" class="absolute inset-0 z-10">
-      <div @click="closeComment" class="cursor-pointer">
-        back
-      </div>
-
-      <div>
+    <section v-if="comment" class="fixed inset-0 z-10 w-full md:w-1/2 mx-auto h-screen overflow-y-scroll px-5 py-5 bg-white">
+      <div class="flex justify-between px-2 items-center">
         <div>
           <span class="flex space-x-3">
             <img
@@ -131,6 +123,9 @@ console.log("FeedCard Post:", props.post.comments);
             <span>{{ post.user.name }}</span>
           </span>
         </div>
+        <div @click="closeComment" class="cursor-pointer">
+          back
+        </div>
       </div>
 
       <div class="mt-3">
@@ -139,18 +134,23 @@ console.log("FeedCard Post:", props.post.comments);
       </div>
 
       <!--List Comment-->
-      <div v-for="comment in post.comments" :key="comment.id">
-        <p>{{ comment.user.name }}: {{ comment.body }}</p>
+      <div v-if="post.comments" class="mt-3 space-y-2 py-3">
+        <CommentCard
+          v-for="comment in post.comments"
+          :key="comment.id"
+          :comment="comment"
+        />
       </div>
       <!--End of List Comment-->
 
-      <div>
+      <!--Form Comment-->
+      <div class="fixed bottom-0 bg-white w-full md:w-1/2 mx-auto">
         <form @submit.prevent="submit">
           <div class="flex justify-between">
             <input
               type="text"
               v-model="form.body"
-              class="w-[90%] bg-gray-white rounded-2xl px-5"
+              class="w-[90%] bg-gray-white rounded-2xl px-5 outline-1 outline-gray-600"
               placeholder="Write a comment..."
             />
             <button type="submit" class="py-2 px-3">Comment</button>
@@ -160,11 +160,7 @@ console.log("FeedCard Post:", props.post.comments);
           </span>
         </form>
       </div>
-
+      <!--End of Form Comment-->
     </section>
-
   </div>
-
-
-
 </template>

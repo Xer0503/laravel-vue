@@ -24,7 +24,7 @@ Route::post('/user/update/{id}', [AdminController::class, 'update']);
 
 //For User Controller route
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [UserController::class, 'home'])->name('home');
+    Route::get('/home', [PostController::class, 'post'])->name('home');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
     Route::post('/profile/changeProfile', [UserController::class, 'uploadImage'])->name('changeProfile');
@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/uploadPost',[UserController::class, 'uploadPost'])->name('uploadPost');
 
     Route::delete('/profile/post/{id}', [PostController::class, 'deletePost'])->name('deletePost');
+    Route::Delete('/home/comment/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment');
 
     //for follwing user
     Route::post('/follow/{id}', [FollowingController::class, 'followUser'])->name('follow.user');
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/home/react/{id}', [PostController::class, 'react'])->name('reactOnPost');
 
     Route::post('/home/comment/{id}', [CommentController::class, 'comment'])->name('commentOnPost');
+
 });
 
 

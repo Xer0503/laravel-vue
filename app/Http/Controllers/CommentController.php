@@ -15,7 +15,7 @@ class CommentController extends Controller
         $userId = auth()->id();
 
         $request->validate([
-            'body' => 'required|string'
+            'body' => 'required|string|min:1'
         ]);
 
         $comment = Comment::create([
@@ -24,6 +24,12 @@ class CommentController extends Controller
             'body' => $request->body
         ]);
         $comment->load('user');
+        return back();
+    }
+
+    public function deleteComment($id){
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
         return back();
     }
 
