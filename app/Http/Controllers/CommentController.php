@@ -10,19 +10,21 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function comment(Request $request, $post_id)
+    public function comment(Request $request, $id)
     {
-        $user = auth()->user();
+        $userId = auth()->id();
+
         $request->validate([
             'body' => 'required|string'
         ]);
 
-        Comment::create([
-            'user_id' => $user->id,
-            'post_id' => $post_id,
-            'body' => $request->body,
+        $comment = Comment::create([
+            'user_id' => $userId,
+            'post_id' => $id,
+            'body' => $request->body
         ]);
-
+        $comment->load('user');
         return back();
     }
+
 }

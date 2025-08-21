@@ -2,6 +2,7 @@
 import { usePage, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import CommentCard from './CommentCard.vue'
 const form = useForm({ id: null, body : '' });
 const auth = usePage().props.auth.user;
 const followings = usePage().props.followings;
@@ -48,8 +49,14 @@ const toggleFollow = () => {
 };
 
 const submit = () => {
-  form.post(`home/comment/${props.post.id}`)
+  form.post(`home/comment/${props.post.id}`, {
+    preserveScroll: true,
+    onSuccess: () => {form.reset('body');}
+  });
 }
+
+
+console.log("FeedCard Post:", props.post.comments); 
 
 </script>
 
@@ -131,14 +138,29 @@ const submit = () => {
         <img v-if="post.image" :src="`/storage/${post.image}`" :alt="post.image" class="w-full rounded object-cover" />
       </div>
 
+      <!--List Comment-->
+      <div v-for="comment in post.comments" :key="comment.id">
+        <p>{{ comment.user.name }}: {{ comment.body }}</p>
+      </div>
+      <!--End of List Comment-->
+
       <div>
         <form @submit.prevent="submit">
           <div class="flex justify-between">
-            <input type="text" v-model="form.comment" class="w-[90%] bg-gray-white rounded-2xl px-5" />
-            <button type="submit" class="py-2 px-3">comment</button>
+            <input
+              type="text"
+              v-model="form.body"
+              class="w-[90%] bg-gray-white rounded-2xl px-5"
+              placeholder="Write a comment..."
+            />
+            <button type="submit" class="py-2 px-3">Comment</button>
           </div>
+          <span v-if="form.errors.body" class="text-red-500 text-sm">
+            {{ form.errors.body }}
+          </span>
         </form>
       </div>
+
     </section>
 
   </div>

@@ -17,8 +17,8 @@
         layout : UserLayout
     })
 
-    const showComment = () => {comment.value = true};
-    const closeComment = () => {comment.value = false};
+    console.log(posts);
+    
 
 </script>
 <template>

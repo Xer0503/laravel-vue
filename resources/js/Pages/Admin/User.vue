@@ -66,12 +66,14 @@ defineOptions({
   <section class="relative overflow-hidden px-2">
     <table class="w-full text-center rounded shadow-md z-10">
       <thead class="bg-gray-600 text-white font-bold">
-        <td>id</td>
-        <td>name</td>
-        <td>email</td>
-        <td>role</td>
-        <td>status</td>
-        <td>action</td>
+        <tr>
+          <td>id</td>
+          <td>name</td>
+          <td>email</td>
+          <td>role</td>
+          <td>status</td>
+          <td>action</td>
+        </tr>
       </thead>
       <tbody>
         <tr

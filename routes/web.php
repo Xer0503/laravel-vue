@@ -40,8 +40,7 @@ Route::middleware(['auth'])->group(function () {
     //for react on post
     Route::post('/home/react/{id}', [PostController::class, 'react'])->name('reactOnPost');
 
-    Route::post('/home/comment/{post_id}', [CommentController::class, 'comment'])->name('commentOnPost');
-
+    Route::post('/home/comment/{id}', [CommentController::class, 'comment'])->name('commentOnPost');
 });
 
 

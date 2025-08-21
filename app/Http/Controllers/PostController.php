@@ -11,8 +11,9 @@ use App\Models\Reaction;
 class PostController extends Controller
 {
     public function post(){
-        $posts = Post::with(['user', 'reactions', 'comments'])->latest()->get();
-        return Inertia::render('/User/Home',[
+        $posts = Post::with(['user','comments.user'])->latest()->get();
+        dd($posts->toArray());
+        return Inertia::render('User/Home',[
             'posts' => $posts
         ]);
     }
